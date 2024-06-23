@@ -1,0 +1,34 @@
+
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract ErrorHandlingExample {
+    address public owner;
+    mapping(address => uint) public balance;
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    // Example of require()
+    function deposit(uint amount) public {
+        require(msg.sender == owner, "Only owner can deposit");
+        balance[msg.sender] += amount;
+    }
+
+    // Example of assert()
+    function withdraw(uint amount) public {
+        assert(balance[msg.sender] >= amount);
+        balance[msg.sender] -= amount;
+    }
+
+    // Example of revert()
+    function transfer(address to, uint amount) public {
+        require(balance[msg.sender] >= amount, "Insufficient balance");
+        balance[msg.sender] -= amount;
+        balance[to] += amount;
+    }
+}
+
+      
